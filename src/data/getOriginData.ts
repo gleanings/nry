@@ -1,11 +1,11 @@
 import { unlinkSync } from 'node:fs';
 import { isArray, isBusinessEmptyString, isString } from '@vvi/is';
 
-import { QQI } from 'qqi';
 import { dog } from '../aided/dog';
 import { mustEndWithSlash } from '../aided/utils';
 import { LocalConfig, LocalConfigItem } from '../types';
 import { originRegistryList } from './origin-registry-list';
+import { LocalData } from '@vvi/node';
 
 const {
   npm,
@@ -51,9 +51,9 @@ export function getOriginData(reset: boolean = false): LocalConfig {
   // 重置默认返回原始值
   if (reset) return [...originData];
   // 读写受限返回原始值
-  if (!qqi.available) return [...originData];
+  if (!ld.available) return [...originData];
 
-  const localConfig = qqi.read();
+  const localConfig = ld.read();
 
   if (
     isArray(localConfig) &&
@@ -80,20 +80,20 @@ export function getOriginData(reset: boolean = false): LocalConfig {
 }
 
 /**  构建读写机  */
-const _qqi = new QQI('nry');
+const _d = new LocalData('nry');
 
 const filename = 'config';
 
-export const qqi = {
+export const ld = {
   /**  当前是否可用  */
-  available: _qqi.available,
+  available: _d.available,
   /**  公共读数据
    *
    * 如果数据不支持则返回默认值
    */
   read(): LocalConfig {
-    if (_qqi.available) {
-      const localData = _qqi.read(filename) as unknown as LocalConfig;
+    if (_d.available) {
+      const localData = _d.read(filename) as unknown as LocalConfig;
       // 简单判断当前数据是否有值
       if (isArray(localData)) {
         return localData;
@@ -106,7 +106,7 @@ export const qqi = {
    * @param newItem
    */
   addNew(newItem: LocalConfigItem) {
-    if (_qqi.available) {
+    if (_d.available) {
       /**  当前的旧数据  */
       const localData = this.read();
       // 添加新的项
@@ -122,14 +122,14 @@ export const qqi = {
    * @param data
    */
   write(data: LocalConfig) {
-    if (_qqi.available) {
-      return _qqi.write(filename, data);
+    if (_d.available) {
+      return _d.write(filename, data);
     }
     return false;
   },
   /**  获取当前的数据  */
   getPath(): string {
-    return _qqi.getPath(filename);
+    return _d.getPath(filename);
   },
   /**  清理文件，该项仅出现在非标记的开发环境  */
   clean() {

@@ -1,7 +1,7 @@
 import { addItem } from './add-item';
 import { dog } from './aided/dog';
 import { parseArg } from './aided/parse';
-import { qqi } from './aided/qqi';
+import { ld } from './aided/local-data';
 import { choose } from './choose';
 import { commandParameters } from './data/commandParameters';
 import { delItem } from './del-item';
@@ -38,7 +38,7 @@ export async function main() {
     return await delItem();
   } else if (commandParameters.clean) {
     dog('当前执行清理');
-    return qqi.clean();
+    return ld.clean();
   }
 
   return await choose();

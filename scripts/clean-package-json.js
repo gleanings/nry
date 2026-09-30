@@ -36,14 +36,14 @@ packageJson = {
     'CHANGELOG.md',
   ],
   keywords: ['nry', 'npm', 'pnpm', 'yarn', 'registry', 'mudbean', 'vvi'],
-  homepage: 'https://npm.lmssee.com/nry',
+  homepage: 'https://npms.gleanings.cn/nry',
   bugs: {
-    url: 'https://github.com/MrMudBean/nry/issues',
+    url: 'https://github.com/gleanings/nry/issues',
     email: 'Mr.MudBean@outlook.com',
   },
   repository: {
     type: 'git',
-    url: 'git+https://github.com/MrMudBean/nry.git',
+    url: 'git+https://github.com/gleanings/nry.git',
   },
   publishConfig: {
     access: 'public',

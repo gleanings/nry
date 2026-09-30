@@ -2,7 +2,7 @@ import { question } from '@vvi/command';
 import { _p } from '@vvi/node';
 import { isUndefined } from '@vvi/is';
 import { brightBlackPen, brightRedPen } from '@vvi/pen';
-import { qqi } from '../aided/qqi';
+import { ld } from '../aided/local-data';
 import { exitProgram } from '../aided/utils';
 import { getOriginData } from '../data/getOriginData';
 import { dataStore } from '../data/index';
@@ -13,7 +13,7 @@ import { getValue } from './inputValue';
 
 /**  添加新的项  */
 export async function addItem() {
-  if (!qqi.available) return await exitProgram('读写受限，正在退出');
+  if (!ld.available) return await exitProgram('读写受限，正在退出');
   const { pkgManager } = dataStore;
   const originData = getOriginData();
   const value = await getValue(originData);

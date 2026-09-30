@@ -1,7 +1,7 @@
 import { selection } from '@vvi/command';
 import { isUndefined } from '@vvi/is';
 import { dog } from './aided/dog';
-import { qqi } from './aided/qqi';
+import { ld } from './aided/local-data';
 import { exitProgram } from './aided/utils';
 import { getOriginData } from './data/getOriginData';
 import { getCurrentRegistry } from './getCurrentRegistry';
@@ -9,7 +9,7 @@ import { list } from './list';
 
 /**  当前可见性的更改  */
 export async function manageVisible() {
-  if (!qqi.available) return await exitProgram('当前读写受限，即将退出程序。');
+  if (!ld.available) return await exitProgram('当前读写受限，即将退出程序。');
 
   const originData = getOriginData();
   /**  当前设置项  */
@@ -35,7 +35,7 @@ export async function manageVisible() {
   });
 
   dog('保存前的数据', originData);
-  const response = qqi.write(originData);
+  const response = ld.write(originData);
 
   if (response) {
     await list();

@@ -2,7 +2,7 @@ import { question, SelectionParamObjectData } from '@vvi/command';
 import { _p } from '@vvi/node';
 import { isUndefined } from '@vvi/is';
 import { dog } from './aided/dog';
-import { qqi } from './aided/qqi';
+import { ld } from './aided/local-data';
 import { exitProgram, mustEndWithSlash } from './aided/utils';
 import { getOriginData } from './data/getOriginData';
 import { dataStore } from './data/index';
@@ -11,8 +11,7 @@ import { list } from './list';
 
 /**  编辑项  */
 export async function editItem() {
-  if (!qqi.available)
-    return await exitProgram('当前读写权限不足，即将退出程序');
+  if (!ld.available) return await exitProgram('当前读写权限不足，即将退出程序');
 
   const target = await getTarget('请选择你想要修改的项', false);
 
@@ -44,7 +43,7 @@ export async function editItem() {
     }
   }
 
-  const result = qqi.write(originData);
+  const result = ld.write(originData);
 
   /// 写入后循环问询是否循环修改
   if (result) {

@@ -2,7 +2,7 @@ import { selection, SelectionParamObjectData } from '@vvi/command';
 import { isUndefined, isFalse, isBusinessEmptyString } from '@vvi/is';
 import { magentaPen } from '@vvi/pen';
 import { dog } from './aided/dog';
-import { qqi } from './aided/qqi';
+import { ld } from './aided/local-data';
 import { exitProgram } from './aided/utils';
 import { dataStore } from './data';
 import { getOriginData } from './data/getOriginData';
@@ -48,7 +48,7 @@ export async function getTarget(
       };
       originData.push(newItem);
       // 当前本地可写
-      if (qqi.available) {
+      if (ld.available) {
         localAdd({ value: currentValue, label: '曾用值' });
       }
     }

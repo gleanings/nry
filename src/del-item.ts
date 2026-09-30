@@ -1,7 +1,7 @@
 import { question } from '@vvi/command';
 import { _p } from '@vvi/node';
 import { isUndefined } from '@vvi/is';
-import { qqi } from './aided/qqi';
+import { ld } from './aided/local-data';
 import { exitProgram } from './aided/utils';
 import { getOriginData } from './data/getOriginData';
 import { getTarget } from './getTarget';
@@ -11,7 +11,7 @@ import { list } from './list';
  * 移除项
  */
 export async function delItem() {
-  if (!qqi.available) return await exitProgram('当前读写受限，即将退出程序');
+  if (!ld.available) return await exitProgram('当前读写受限，即将退出程序');
 
   const target = await getTarget('请选择要删除的项', false, false);
 
@@ -31,7 +31,7 @@ export async function delItem() {
     }
   }
 
-  const result = qqi.write(originData);
+  const result = ld.write(originData);
 
   /// 删除完成后是否循环执行删除
   if (result) {
